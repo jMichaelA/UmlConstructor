@@ -1,0 +1,123 @@
+
+/*** main component standards ***/
+#root, .body {
+    -fx-background-color: #36454f;
+    -fx-text-fill: #fff;
+    -fx-fill: #fff;
+    -fx-font-family: "Arial";
+    -fx-font-size: 12px;
+}
+
+.vbox {
+    -fx-padding: 10 20;
+    -fx-spacing: 8;
+}
+
+.hbox {
+    -fx-padding: 5 0;
+}
+
+.button {
+    -fx-background-color:
+            #090a0c,
+            linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+            linear-gradient(#20262b, #191d22);
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);
+    -fx-padding: 7 20;
+}
+
+.title {
+    -fx-fill: #fff;
+    -fx-font-size: 30;
+}
+
+.sec-title {
+    -fx-fill: #fff;
+    -fx-font-size: 20;
+}
+
+.text-label {
+    -fx-fill: #fff;
+    -fx-font-size: 14;
+    -fx-spacing: 10;
+}
+
+.text-field {
+    -fx-max-width: 200px;
+    -fx-spacing: 10;
+}
+
+.button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(112,128,144,0.8), 10, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.table {
+    -fx-background-color: #d9d9d9;
+}
+
+.blue {
+    -fx-fill: #00008B;
+}
+
+.menu-bar {
+  -fx-background-color: #36454f;
+  -fx-border-width: 0;
+}
+
+.menu-bar .label {
+    -fx-font-size: 12pt;
+    -fx-text-fill: #d9d9d9;
+}
+
+
+.menu:hover {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.menu-item .label{
+    -fx-font-size: 12pt;
+    -fx-label-line-length: 8;
+}
+
+.black-grey {
+    -fx-background-color: #40525e;
+}
+
+.space-5 {
+    -fx-spacing: 10px;
+}
+
+.padding-10 {
+    -fx-padding: 10px;
+}
+
+/*** specific elements ***/
+
+.left-menu {
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}
+
+.intro-title {
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+.hbox-col-md-4 {
+    -fx-spacing: 40;
+}
+
+.vbox-obs {
+    -fx-pref-width: 400;
+}
+
+.table-def {
+    -fx-border-color: #000000;
+}
+
+
+
