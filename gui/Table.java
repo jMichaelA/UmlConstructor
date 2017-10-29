@@ -10,18 +10,18 @@ public class Table extends StackPane implements Component {
     private Label name;
 
 
-    public Table(Integer x, Integer y, String name){
+    public Table(Integer x, Integer y, String name) {
         this.rectangle = new Rectangle(x, y);
-        this.rectangle.getStyleClass().addAll("table-def");
+        this.rectangle.getStyleClass().addAll("table-def-rect");
+        this.rectangle.setArcHeight(5);
+        this.rectangle.setArcWidth(5);
 
         this.name = new Label(name);
-        this.name.getStyleClass().addAll("table-def");
+        this.name.getStyleClass().addAll("table-def-label");
 
+        this.getStyleClass().addAll("table-cpt");
         this.getChildren().addAll(rectangle, this.name);
         MouseControlUtil.makeDraggable(this);
-
-
-
     }
 
     @Override

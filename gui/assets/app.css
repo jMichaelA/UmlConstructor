@@ -115,8 +115,16 @@
     -fx-pref-width: 400;
 }
 
-.table-def {
-    -fx-border-color: #000000;
+.table-cpt {
+    -fx-border-color: #388E8E;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+
+}
+
+.table-def-rect {
+    -fx-fill: #ffffff;
 }
 
 

@@ -22,12 +22,12 @@ public class App extends Application {
         drawing.setId("drawing");
 
         // add rectangles and make them draggable
-        Table rect = new Table(30, 30, "gasp");
+        Table rect = new Table(50, 50, "gasp");
         rect.setLayoutY(40);
         rect.setLayoutX(40);
 
         drawing.getChildren().addAll(rect);
-        root.getCanvas().getChildren().addAll();
+        root.getCanvas().getChildren().addAll(drawing);
         Scene scene = new Scene(root, 600, 600);
 
         stage.setTitle("test");
