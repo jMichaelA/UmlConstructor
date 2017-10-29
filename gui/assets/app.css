@@ -25,6 +25,7 @@
     -fx-text-fill: #fff;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);
     -fx-padding: 7 20;
+    -fx-font-size: 10px;
 }
 
 .title {
@@ -61,9 +62,8 @@
     -fx-fill: #00008B;
 }
 
-.menu-bar {
+.menu-bar, .menu, .menu-item, .context-menu {
   -fx-background-color: #36454f;
-  -fx-border-width: 0;
 }
 
 .menu-bar .label {
@@ -72,14 +72,19 @@
 }
 
 
-.menu:hover {
+.menu:hover, .menu-item:hover {
     -fx-background-color: transparent;
     -fx-cursor: hand;
 }
 
-.menu-item .label{
+.menu-item .label {
     -fx-font-size: 12pt;
     -fx-label-line-length: 8;
+}
+
+.context-menu {
+    -fx-border-color: #40525e;
+    -fx-border-width: 1 0 0 0;
 }
 
 .black-grey {
@@ -93,6 +98,12 @@
 .padding-10 {
     -fx-padding: 10px;
 }
+
+.border-bottom {
+    -fx-border-color: #40525e;
+    -fx-border-width: 0 0 1 0;
+}
+
 
 /*** specific elements ***/
 
@@ -124,8 +135,26 @@
 }
 
 .table-def-rect {
-    -fx-fill: #ffffff;
+    -fx-fill: rgba(255, 255, 255, 1);
 }
+
+.table-def-label {
+    -fx-text-fill: #000;
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+}
+
+.grid {
+    -fx-background-image: url("grid.jpg");
+    -fx-background-size: 1920 1200;
+    -fx-background-position: center;
+}
+
+.blue-grid {
+    -fx-background-image: url("blue-grid.jpg");
+}
+
+
 
 
 

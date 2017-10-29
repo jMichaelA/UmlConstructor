@@ -21,12 +21,18 @@ public class App extends Application {
         drawing.getStylesheets().add("gui/assets/app.css");
         drawing.setId("drawing");
 
-        // add rectangles and make them draggable
-        Table rect = new Table(50, 50, "gasp");
+
+        Table rect = new Table(75, 75, "parent");
         rect.setLayoutY(40);
         rect.setLayoutX(40);
 
-        drawing.getChildren().addAll(rect);
+        Table table2 = new Table(50, 50, "child");
+        table2.setLayoutY(200);
+        table2.setLayoutX(50);
+
+        ClassLine line = new ClassLine(rect, table2);
+
+        drawing.getChildren().addAll(line, rect, table2);
         root.getCanvas().getChildren().addAll(drawing);
         Scene scene = new Scene(root, 600, 600);
 

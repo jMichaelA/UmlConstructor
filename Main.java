@@ -1,8 +1,3 @@
-import applicationLayor.command.Command;
-import applicationLayor.command.CommandFactory;
-import applicationLayor.command.Invoker;
-import applicationLayor.component.Canvas;
-import applicationLayor.component.ComponentFactory;
 import gui.App;
 import javafx.application.Application;
 

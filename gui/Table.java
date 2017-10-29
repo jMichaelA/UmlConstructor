@@ -4,13 +4,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import jfxtras.labs.util.event.MouseControlUtil;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Table extends StackPane implements Component {
     private Rectangle rectangle;
     private Label name;
-
+    private AtomicInteger id;
 
     public Table(Integer x, Integer y, String name) {
+        id = new AtomicInteger();
         this.rectangle = new Rectangle(x, y);
         this.rectangle.getStyleClass().addAll("table-def-rect");
         this.rectangle.setArcHeight(5);
@@ -27,6 +29,26 @@ public class Table extends StackPane implements Component {
     @Override
     public String getType() {
         return "table";
+    }
+
+    @Override
+    public AtomicInteger getComponentId() {
+        return id;
+    }
+
+    @Override
+    public void setComponentId(AtomicInteger id){
+        this.id = id;
+    }
+
+    @Override
+    public Double getX() {
+        return this.getLayoutX();
+    }
+
+    @Override
+    public Double getY() {
+        return this.getLayoutY();
     }
 
     public Rectangle getRectangle() {
