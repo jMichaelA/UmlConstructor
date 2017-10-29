@@ -17,6 +17,7 @@ public class App extends Application {
         root.setId("root");
         root.setPrefSize(200, 300);
 
+
         Pane drawing = new Canvas();
         drawing.getStylesheets().add("gui/assets/app.css");
         drawing.setId("drawing");

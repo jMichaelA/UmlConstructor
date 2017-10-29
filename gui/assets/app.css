@@ -25,7 +25,7 @@
     -fx-text-fill: #fff;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);
     -fx-padding: 7 20;
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
 }
 
 .title {
@@ -64,6 +64,8 @@
 
 .menu-bar, .menu, .menu-item, .context-menu {
   -fx-background-color: #36454f;
+  -fx-border-width: 1.35;
+  -fx-border-color: transparent;
 }
 
 .menu-bar .label {
@@ -71,10 +73,10 @@
     -fx-text-fill: #d9d9d9;
 }
 
-
 .menu:hover, .menu-item:hover {
     -fx-background-color: transparent;
     -fx-cursor: hand;
+    -fx-border-color: #4b5f6d;
 }
 
 .menu-item .label {

@@ -23,6 +23,9 @@ public class Layout extends Pane {
 
     public Layout(){
         super();
+        menuSave.getStyleClass().addAll("sub-menu");
+        menuOpen.getStyleClass().addAll("sub-menu");
+
         menuFile.getItems().addAll(menuSave, menuOpen);
         menuView.getItems().addAll(menuBackground);
 
@@ -32,7 +35,7 @@ public class Layout extends Pane {
         menuBox.getStyleClass().addAll("menu-bar", "border-bottom");
         menuBox.getChildren().addAll(menu);
 
-        Integer btnSize = 110;
+        Integer btnSize = 120;
 
         Button btn1 = new Button("Class");
         btn1.getStyleClass().addAll("button", "left-menu-button");
@@ -53,11 +56,11 @@ public class Layout extends Pane {
         leftMenu = new VBox();
         leftMenu.getStyleClass().addAll("left-menu");
         leftMenu.setPrefHeight(1000);
-        leftMenu.setPrefWidth(125);
+        leftMenu.setPrefWidth(150);
         leftMenu.getChildren().addAll(btn1, btn2, btn3, btn4);
 
         canvas = new Canvas();
-        canvas.getStyleClass().addAll("black-grey", "padding-10");
+        canvas.getStyleClass().addAll("black-grey","padding-10");
         canvas.prefWidthProperty().bind(this.widthProperty().subtract(leftMenu.getPrefWidth()+30));
 
         body = new HBox();
