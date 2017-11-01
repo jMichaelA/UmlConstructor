@@ -60,7 +60,7 @@ public class Layout extends Pane {
         leftMenu.getChildren().addAll(btn1, btn2, btn3, btn4);
 
         canvas = new Canvas();
-        canvas.getStyleClass().addAll("black-grey","padding-10");
+        canvas.getStyleClass().addAll("black-grey", "padding-10");
         canvas.prefWidthProperty().bind(this.widthProperty().subtract(leftMenu.getPrefWidth()+30));
 
         body = new HBox();

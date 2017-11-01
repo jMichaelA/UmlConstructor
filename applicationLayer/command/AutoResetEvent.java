@@ -5,8 +5,29 @@ package applicationLayer.command;
  */
 public class AutoResetEvent {
     private volatile boolean open = false;
+    private final Object target = new Object();
 
-    public AutoResetEvent(boolean open){
+    public AutoResetEvent(boolean open) {
         this.open = open;
     }
+
+    public void wait(Integer len) throws InterruptedException {
+        synchronized (target) {
+            while(!open) {
+                target.wait(len);
+            }
+        }
+    }
+
+    public void set() {
+        synchronized (target) {
+            open = true;
+            target.notify();
+        }
+    }
+
+    public void reset(){
+        open = false;
+    }
+
 }

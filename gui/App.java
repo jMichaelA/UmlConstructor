@@ -2,11 +2,7 @@ package gui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import jfxtras.labs.util.event.MouseControlUtil;
 
 public class App extends Application {
 
@@ -17,11 +13,9 @@ public class App extends Application {
         root.setId("root");
         root.setPrefSize(200, 300);
 
-
-        Pane drawing = new Canvas();
+        Canvas drawing = root.getCanvas();
         drawing.getStylesheets().add("gui/assets/app.css");
         drawing.setId("drawing");
-
 
         Table rect = new Table(75, 75, "parent");
         rect.setLayoutY(40);
@@ -34,7 +28,6 @@ public class App extends Application {
         ClassLine line = new ClassLine(rect, table2);
 
         drawing.getChildren().addAll(line, rect, table2);
-        root.getCanvas().getChildren().addAll(drawing);
         Scene scene = new Scene(root, 600, 600);
 
         stage.setTitle("test");
