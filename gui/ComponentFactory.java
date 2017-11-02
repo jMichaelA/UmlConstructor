@@ -1,4 +1,4 @@
-package applicationLayer.component;
+package gui;
 
 import java.util.HashMap;
 

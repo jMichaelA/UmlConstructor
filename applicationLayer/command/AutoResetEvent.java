@@ -11,10 +11,14 @@ public class AutoResetEvent {
         this.open = open;
     }
 
-    public void wait(Integer len) throws InterruptedException {
+    public void waitOne(Integer len) throws InterruptedException {
         synchronized (target) {
+            long time = System.currentTimeMillis();
             while(!open) {
                 target.wait(len);
+                if(System.currentTimeMillis() - time >= len){
+                    break;
+                }
             }
         }
     }

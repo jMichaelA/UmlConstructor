@@ -1,6 +1,7 @@
 package applicationLayer.command;
 
-import applicationLayer.component.Canvas;
+
+import gui.Canvas;
 
 public class CommandFactory {
     private static Canvas canvas;
@@ -12,18 +13,35 @@ public class CommandFactory {
 
     private CommandFactory(Canvas canvas) {
         this.canvas = canvas;
-        System.out.println("created");
     }
 
     public Command create(String name, Object[] params){
         Command command = null;
         switch (name.toLowerCase()) {
             case "addtable":
-                command = new AddTable();
+                command = new AddTable(params);
                 break;
+            case "renameTable":
+                command = new RenameTable(params);
             default:
                 break;
         }
         return command;
+    }
+
+    public static Canvas getCanvas() {
+        return canvas;
+    }
+
+    public static void setCanvas(Canvas canvas) {
+        CommandFactory.canvas = canvas;
+    }
+
+    public static CommandFactory getOurInstance() {
+        return ourInstance;
+    }
+
+    public static void setOurInstance(CommandFactory ourInstance) {
+        CommandFactory.ourInstance = ourInstance;
     }
 }

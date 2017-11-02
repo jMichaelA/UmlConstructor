@@ -1,5 +1,7 @@
 package applicationLayer.command;
 
+import gui.Canvas;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,10 +16,19 @@ public class Invoker {
     private List<Command> undoStack = Collections.synchronizedList(new ArrayList<Command>());
     private List<Command> redoStack = Collections.synchronizedList(new ArrayList<Command>());
     private AutoResetEvent enqueEvent = new AutoResetEvent(false);
+    private Canvas canvas;
+
+    public Invoker(Canvas canvas){
+        this.canvas = canvas;
+    }
+
+    public Invoker (){
+        canvas = new Canvas();
+    }
 
     public void start() {
         isGoing = true;
-        worker = new Thread();
+        worker = new Thread(this::run);
         worker.start();
     }
 
@@ -28,23 +39,25 @@ public class Invoker {
     private void run(){
         while (isGoing){
             Command cmd = null;
-            cmd = doQueue.remove();
-            if (cmd == null){
+            if(doQueue.size() > 0){
+                cmd = doQueue.remove();
+            }
+
+            if (cmd != null){
                 if(cmd instanceof Undo) {
-                    undo();
+                    executeUndo();
                 } else if(cmd instanceof Redo) {
-                    redo();
+                    executeRedo();
                 } else {
-                    if (cmd.execute()){
+                    if (cmd.execute(canvas)){
                         undoStack.add(cmd);
                     }
                 }
-            }
-            else {
+            } else {
                 try {
-                    enqueEvent.wait(100);
+                    enqueEvent.waitOne(100);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+
                 }
             }
         }
@@ -55,7 +68,7 @@ public class Invoker {
             int last = undoStack.size()-1;
             Command cmd = undoStack.get(last);
             undoStack.remove(last);
-            cmd.undo();
+            cmd.undo(canvas);
             redoStack.add(cmd);
         }
 
@@ -66,7 +79,7 @@ public class Invoker {
             int last = redoStack.size()-1;
             Command cmd = redoStack.get(last);
             redoStack.remove(last);
-            cmd.redo();
+            cmd.redo(canvas);
             undoStack.add(cmd);
         }
     }

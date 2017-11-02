@@ -1,8 +1,11 @@
 package gui;
 
+import applicationLayer.command.CommandFactory;
+import applicationLayer.command.Invoker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import jfxtras.labs.util.event.MouseControlUtil;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -10,6 +13,7 @@ public class Table extends StackPane implements Component {
     private Rectangle rectangle;
     private Label name;
     private AtomicInteger id;
+    private String cmd;
 
     public Table(Integer x, Integer y, String name) {
         id = new AtomicInteger();
@@ -24,6 +28,25 @@ public class Table extends StackPane implements Component {
         this.getStyleClass().addAll("table-cpt");
         this.getChildren().addAll(rectangle, this.name);
         MouseControlUtil.makeDraggable(this);
+
+        this.setOnMouseClicked(e -> {
+            Stage stage = new Stage();
+            if(e.getClickCount() == 2){
+                NameTableForm form = new NameTableForm();
+                try {
+                    form.start(stage);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
+                stage.setOnCloseRequest(event->{
+                    if(form.getName() != null){
+                        this.setName(form.getName());
+                        this.rectangle.setWidth(form.getName().length()*10.0+10);
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -65,5 +88,9 @@ public class Table extends StackPane implements Component {
 
     public void setName(Label name) {
         this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name.setText(name);
     }
 }

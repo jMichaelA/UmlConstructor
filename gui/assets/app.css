@@ -101,11 +101,27 @@
     -fx-padding: 10px;
 }
 
+.padding-top-25 {
+    -fx-padding: 25px 0 0 0;
+}
+
+padding-left-10 {
+    -fx-padding: 0 0 0 10px;
+}
+
+padding-left-100 {
+    -fx-padding: 0 0 0 100px;
+}
+
 .border-bottom {
     -fx-border-color: #40525e;
     -fx-border-width: 0 0 1 0;
 }
 
+
+.label {
+    -fx-text-fill: #fff;
+}
 
 /*** specific elements ***/
 
@@ -155,6 +171,8 @@
 .blue-grid {
     -fx-background-image: url("blue-grid.jpg");
 }
+
+
 
 
 
