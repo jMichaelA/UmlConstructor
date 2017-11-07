@@ -2,11 +2,16 @@ package applicationLayer.command;
 
 import gui.Canvas;
 import gui.Table;
-import javafx.application.Platform;
 
 public class AddTable extends Command {
     private Table table;
     private String name;
+
+    public AddTable(){
+        table = new Table(50, 50);
+        table.setLayoutX(100);
+        table.setLayoutY(100);
+    }
 
     public AddTable(Object[] params){
         if(params == null || params.length < 1) {
@@ -22,7 +27,6 @@ public class AddTable extends Command {
 
     @Override
     public Boolean execute(Canvas canvas) {
-
         canvas.getChildren().addAll(table);
         return true;
     }

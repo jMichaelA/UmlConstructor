@@ -3,7 +3,6 @@ package applicationLayer.command;
 import gui.Canvas;
 import gui.ClassLine;
 import gui.Table;
-import javafx.application.Platform;
 
 public class AddLine extends Command {
     Table start;

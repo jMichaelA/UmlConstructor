@@ -2,8 +2,6 @@ package applicationLayer.command;
 
 import gui.Canvas;
 import gui.Table;
-import javafx.application.Platform;
-import javafx.scene.Node;
 
 public class RenameTable extends Command {
     private String prevName;
