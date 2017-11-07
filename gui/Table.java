@@ -28,25 +28,6 @@ public class Table extends StackPane implements Component {
         this.getStyleClass().addAll("table-cpt");
         this.getChildren().addAll(rectangle, this.name);
         MouseControlUtil.makeDraggable(this);
-
-        this.setOnMouseClicked(e -> {
-            Stage stage = new Stage();
-            if(e.getClickCount() == 2){
-                NameTableForm form = new NameTableForm();
-                try {
-                    form.start(stage);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-
-                stage.setOnCloseRequest(event->{
-                    if(form.getName() != null){
-                        this.setName(form.getName());
-                        this.rectangle.setWidth(form.getName().length()*10.0+10);
-                    }
-                });
-            }
-        });
     }
 
     @Override

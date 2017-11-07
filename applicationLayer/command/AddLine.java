@@ -1,23 +1,19 @@
 package applicationLayer.command;
 
 import gui.Canvas;
+import gui.ClassLine;
 import gui.Table;
 import javafx.application.Platform;
 
-public class AddTable extends Command {
-    private Table table;
-    private String name;
+public class AddLine extends Command {
+    Table start;
+    Table end;
+    ClassLine line;
 
-    public AddTable(Object[] params){
-        if(params == null || params.length < 1) {
-            name = "class";
-        }else {
-            name = params[0].toString();
-        }
-        int width = name.length()*10;
-        table = new Table(width, 50, name);
-        table.setLayoutX(100);
-        table.setLayoutY(100);
+    public AddLine(Object[] params){
+        this.start = (Table) params[0];
+        this.end = (Table) params[1];
+        line = new ClassLine(start, end);
     }
 
     @Override
@@ -25,7 +21,8 @@ public class AddTable extends Command {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                canvas.getChildren().addAll(table);
+                canvas.getChildren().removeAll(start, end);
+                canvas.getChildren().addAll(line, start, end);
             }
         });
         return true;
@@ -36,7 +33,7 @@ public class AddTable extends Command {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                canvas.getChildren().remove(table);
+                canvas.getChildren().remove(line);
             }
         });
     }
@@ -46,16 +43,16 @@ public class AddTable extends Command {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                canvas.getChildren().addAll(table);
+                execute(canvas);
             }
         });
     }
 
-    public Table getTable() {
-        return table;
+    public ClassLine getLine() {
+        return line;
     }
 
-    public void setTable(Table table) {
-        this.table = table;
+    public void setLine(ClassLine line) {
+        this.line = line;
     }
 }

@@ -31,15 +31,33 @@ public class RenameTable extends Command {
 
     @Override
     public void undo(Canvas canvas) {
-        String temp = prevName;
-        prevName = table.getName().getText();
-        table.setName(temp);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                String temp = prevName;
+                prevName = table.getName().getText();
+                table.setName(temp);
+            }
+        });
     }
 
     @Override
     public void redo(Canvas canvas) {
-        String temp = prevName;
-        prevName = table.getName().getText();
-        table.setName(temp);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                String temp = prevName;
+                prevName = table.getName().getText();
+                table.setName(temp);
+            }
+        });
+    }
+
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
     }
 }

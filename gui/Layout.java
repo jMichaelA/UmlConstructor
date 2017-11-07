@@ -1,9 +1,6 @@
 package gui;
 
-import applicationLayer.command.AddTable;
-import applicationLayer.command.CommandFactory;
-import applicationLayer.command.Invoker;
-import applicationLayer.command.Undo;
+import applicationLayer.command.*;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
@@ -16,6 +13,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class Layout extends Pane {
     private MenuBar menu = new MenuBar();
@@ -31,8 +31,17 @@ public class Layout extends Pane {
     private VBox leftMenu;
     private Invoker invoker;
     private CommandFactory cmdFactory = CommandFactory.getInstance();
-
+    private Button classBtn = new Button("Class");
+    private Button inherit = new Button("Inheritance");
+    private ArrayList<Table> classTable = new ArrayList<Table>();
     private KeyCombination ctrZ = KeyCodeCombination.keyCombination("Ctrl+z");
+
+    /* lines */
+    private Boolean addingLine = false;
+    private Boolean deleting = false;
+    private ClassLine deleteingLine = null;
+    private Table tableA = null;
+    private Table tableB = null;
 
     public Layout(){
         super();
@@ -55,16 +64,11 @@ public class Layout extends Pane {
 
         Integer btnSize = 120;
 
-        Button classBtn = new Button("Class");
         classBtn.getStyleClass().addAll("button", "left-menu-button");
         classBtn.setPrefWidth(btnSize);
-        classBtn.setOnAction(e -> {
-            invoker.enqueueCommand(cmdFactory.create("addTable", null));
-        });
 
-        Button btn2 = new Button("Inheritance");
-        btn2.getStyleClass().addAll("button", "left-menu-button");
-        btn2.setPrefWidth(btnSize);
+        inherit.getStyleClass().addAll("button", "left-menu-button");
+        inherit.setPrefWidth(btnSize);
 
         Button btn3 = new Button("Aggregation");
         btn3.getStyleClass().addAll("button", "left-menu-button");
@@ -78,7 +82,7 @@ public class Layout extends Pane {
         leftMenu.getStyleClass().addAll("left-menu");
         leftMenu.setPrefHeight(1000);
         leftMenu.setPrefWidth(150);
-        leftMenu.getChildren().addAll(classBtn, btn2, btn3, btn4);
+        leftMenu.getChildren().addAll(classBtn, inherit, btn3, btn4);
 
         canvas.getStyleClass().addAll("black-grey", "padding-10");
         canvas.prefWidthProperty().bind(this.widthProperty().subtract(leftMenu.getPrefWidth()+30));
@@ -97,12 +101,23 @@ public class Layout extends Pane {
     private void setActions(){
 
         this.setOnKeyPressed(e -> {
+            if(deleting){
+                deleteingLine.setOnMouseClicked(event -> {
+                    if(e.getCode() == KeyCode.DELETE) {
+                        Object[] params = {deleteingLine};
+                        invoker.enqueueCommand(cmdFactory.create("delete", params));
+                        resetDeletingLine();
+                    }
+                });
+            }
             if(e.getCode() == KeyCode.Z && e.isControlDown()){
                 invoker.undo();
             }else if(e.getCode() == KeyCode.R && e.isControlDown()){
                 invoker.redo();
             }
         });
+
+        setClassBtn();
 
         menuUndo.setOnAction(e -> {
             invoker.undo();
@@ -111,6 +126,69 @@ public class Layout extends Pane {
         menuRedo.setOnAction(e -> {
             invoker.redo();
         });
+
+        inherit.setOnAction(e -> {
+            addingLine = !addingLine;
+        });
+    }
+
+    private void setClassBtn(){
+        classBtn.setOnAction(e -> {
+            AddTable cmd = (AddTable)cmdFactory.create("addtable", null);
+            invoker.enqueueCommand(cmd);
+            classTable.add(cmd.getTable());
+            resetDeletingLine();
+
+            cmd.getTable().setOnMouseClicked(evt -> {
+                deleting = true;
+                if(evt.getClickCount() == 2) {
+                    resetAddingLine();
+                    Stage stage = new Stage();
+                    NameTableForm form = new NameTableForm();
+                    try {
+                        form.start(stage);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+
+                    stage.setOnCloseRequest(event-> {
+                        if(form.getName() != null) {
+                            Object[] obj = {cmd.getTable(), form.getName()};
+                            RenameTable tmpCmd = (RenameTable) cmdFactory.create("renametable", obj);
+                            invoker.enqueueCommand(tmpCmd);
+                            tmpCmd.getTable().getRectangle().setWidth(form.getName().length()*10.0+10);
+                        }
+                    });
+                }else if(addingLine) {
+                    if(tableA == null){
+                        tableA = cmd.getTable();
+                    }else{
+                        tableB = cmd.getTable();
+                        Object[] obj = {tableA, tableB};
+                        AddLine lineCmd = (AddLine) cmdFactory.create("addLine", obj);
+                        invoker.enqueueCommand(lineCmd);
+                        resetAddingLine();
+
+                        deleting = true;
+                        deleteingLine = lineCmd.getLine();
+                    }
+                }else {
+                    resetDeletingLine();
+                }
+            });
+        });
+
+    }
+
+    private void resetAddingLine() {
+        tableA = null;
+        tableB = null;
+        addingLine = false;
+    }
+
+    private void resetDeletingLine() {
+        deleting = false;
+        deleteingLine = null;
     }
 
     public double getLeftBoundary(){

@@ -21,8 +21,15 @@ public class CommandFactory {
             case "addtable":
                 command = new AddTable(params);
                 break;
-            case "renameTable":
+            case "renametable":
                 command = new RenameTable(params);
+                break;
+            case "addline":
+                command = new AddLine(params);
+                break;
+            case "delete":
+                command = new Delete(params);
+                break;
             default:
                 break;
         }

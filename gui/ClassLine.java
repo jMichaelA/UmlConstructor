@@ -21,6 +21,7 @@ public class ClassLine extends Line implements Component {
         id = new AtomicInteger();
         this.start = start;
         this.end = end;
+        this.setStrokeWidth(2.0);
 
         this.setStartX(start.getX());
         this.setStartY(start.getY());
