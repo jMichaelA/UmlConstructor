@@ -18,34 +18,22 @@ public class AddLine extends Command {
 
     @Override
     public Boolean execute(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                canvas.getChildren().removeAll(start, end);
-                canvas.getChildren().addAll(line, start, end);
-            }
-        });
+
+        canvas.getChildren().removeAll(start, end);
+        canvas.getChildren().addAll(line, start, end);
+
         return true;
     }
 
     @Override
     public void undo(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                canvas.getChildren().remove(line);
-            }
-        });
+        canvas.getChildren().remove(line);
+
     }
 
     @Override
     public void redo(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                execute(canvas);
-            }
-        });
+        execute(canvas);
     }
 
     public ClassLine getLine() {

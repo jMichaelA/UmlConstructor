@@ -1,6 +1,7 @@
 package applicationLayer.command;
 
 import gui.Canvas;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,9 +50,12 @@ public class Invoker {
                 } else if(cmd instanceof Redo) {
                     executeRedo();
                 } else {
-                    if (cmd.execute(canvas)){
-                        undoStack.add(cmd);
-                    }
+                    Command finalCmd = cmd;
+                    Platform.runLater(() -> {
+                        if(finalCmd.execute(canvas)){
+                            undoStack.add(finalCmd);
+                        }
+                    });
                 }
             } else {
                 try {
@@ -68,7 +72,9 @@ public class Invoker {
             int last = undoStack.size()-1;
             Command cmd = undoStack.get(last);
             undoStack.remove(last);
-            cmd.undo(canvas);
+            Platform.runLater(()->{
+                cmd.undo(canvas);
+            });
             redoStack.add(cmd);
         }
 
@@ -79,7 +85,9 @@ public class Invoker {
             int last = redoStack.size()-1;
             Command cmd = redoStack.get(last);
             redoStack.remove(last);
-            cmd.redo(canvas);
+            Platform.runLater(()->{
+                cmd.redo(canvas);
+            });
             undoStack.add(cmd);
         }
     }

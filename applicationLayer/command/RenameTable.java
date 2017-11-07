@@ -18,39 +18,23 @@ public class RenameTable extends Command {
 
     @Override
     public Boolean execute(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                prevName = table.getName().getText();
-                table.setName(name);
-            }
-        });
-
+        prevName = table.getName().getText();
+        table.setName(name);
         return true;
     }
 
     @Override
     public void undo(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                String temp = prevName;
-                prevName = table.getName().getText();
-                table.setName(temp);
-            }
-        });
+        String temp = prevName;
+        prevName = table.getName().getText();
+        table.setName(temp);
     }
 
     @Override
     public void redo(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                String temp = prevName;
-                prevName = table.getName().getText();
-                table.setName(temp);
-            }
-        });
+        String temp = prevName;
+        prevName = table.getName().getText();
+        table.setName(temp);
     }
 
     public Table getTable() {

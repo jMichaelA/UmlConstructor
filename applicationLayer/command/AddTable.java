@@ -22,33 +22,19 @@ public class AddTable extends Command {
 
     @Override
     public Boolean execute(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                canvas.getChildren().addAll(table);
-            }
-        });
+
+        canvas.getChildren().addAll(table);
         return true;
     }
 
     @Override
     public void undo(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                canvas.getChildren().remove(table);
-            }
-        });
+        canvas.getChildren().remove(table);
     }
 
     @Override
     public void redo(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                canvas.getChildren().addAll(table);
-            }
-        });
+        canvas.getChildren().addAll(table);
     }
 
     public Table getTable() {

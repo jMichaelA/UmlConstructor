@@ -16,31 +16,20 @@ public class Delete extends Command {
 
     @Override
     public Boolean execute(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                canvas.getChildren().remove(node);
-
-            }
-        });
+        canvas.getChildren().remove(node);
         return true;
     }
 
     @Override
     public void undo(Canvas canvas) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                if(node instanceof ClassLine){
-                    start = ((ClassLine) node).getStart();
-                    end = ((ClassLine) node).getEnd();
-                    canvas.getChildren().removeAll(start, end);
-                    canvas.getChildren().addAll(node, start, end);
-                }else {
-                    canvas.getChildren().addAll(node);
-                }
-            }
-        });
+        if(node instanceof ClassLine){
+            start = ((ClassLine) node).getStart();
+            end = ((ClassLine) node).getEnd();
+            canvas.getChildren().removeAll(start, end);
+            canvas.getChildren().addAll(node, start, end);
+        }else {
+            canvas.getChildren().addAll(node);
+        }
     }
 
     @Override
